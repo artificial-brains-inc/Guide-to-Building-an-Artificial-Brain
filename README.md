@@ -2,7 +2,7 @@
 
 *Expanded developer and agent booklet   |   Version 0.5*
 
-**Start building:** [Building your first artificial brain](#15-building-your-first-artificial-brain) · [Useful operating points](#08-useful-operating-points) · [Observing and extending your brain](#16-observing-and-extending-your-brain)
+**Start building:**  [The core of an artificial brain](#01-the-core-of-an-artificial-brain) · [Building your first artificial brain](#15-building-your-first-artificial-brain) · [Useful operating points](#08-useful-operating-points) · [Observing and extending your brain](#16-observing-and-extending-your-brain)
 
 ## Contents
 
