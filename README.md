@@ -2,11 +2,11 @@
 
 *Version 0.5*
 
+
+**GET YOUR DEV KIT (Shipping now):** [Prima-Lux Dev Kit: Up to 10,000 Synthetic Neurons](https://artificialbrains.ai)
+
+
 **Start building:**  [The core of an artificial brain](#01-the-core-of-an-artificial-brain) · [Building your first artificial brain](#15-building-your-first-artificial-brain) · [Useful operating points](#08-useful-operating-points) · [Observing and extending your brain](#16-observing-and-extending-your-brain)
-
-
-
-** GET YOUR DEV KIT (Shipping now): ** [Prima-Lux Dev Kit: Up to 10,000 Synthetic Neurons](https://artificialbrains.ai)
 
 
 
