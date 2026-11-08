@@ -494,6 +494,90 @@ Persistent firing alone does not tell us which experience has been remembered. F
 
 Stop saves the neural state. Reset dynamics discards accumulated neural changes and memory. It does not reset the robot's physical posture or the surrounding world; the application remains responsible for that external context.
 
+### Learning Rules
+
+### Neural dynamics come first
+
+Our artificial brains compute through neural dynamics. Connected populations interact, form associations, retain information, recall earlier states, and produce actions through their activity and feedback.
+
+**These capabilities do not depend on adding a learning rule.** A network with static connections can still compute, hold memory and adapt/respond to a changing environment based on real-time sensory input. Static describes the connection TNorm, not the activity or capabilities of the brain.
+
+Learning rules serve a different purpose: **adjusting behavior through experience**. They change how strongly particular pathways influence the network. For example, increasing opposition to an unwanted response or reducing inhibition so another response becomes available.
+
+First establish the intended behavior through neural dynamics. Then add learning rules where a specific behavior should adapt. Inhibitory connections are especially useful for adjusting how existing computations influence behavior.
+
+Learning rules on excitatory connections between OPUs can alter the computation itself. Use it deliberately when that relationship should change.
+
+### What eligibility means
+
+Imagine that a neural pathway takes part in an action, but the result becomes clear a moment later. How can a reward affect the connections that were involved?
+
+For learning with reward, each connection between neurons keeps a short memory of their recent firing. We call this **eligibility**. It gives a later reward something from the recent past to act on.
+
+This memory can point toward making the connection stronger or weaker. When the source neuron fires shortly before the receiving neuron, it contributes toward strengthening. When they fire in the reverse order, it contributes toward weakening. As activity continues, these contributions combine. Older contributions gradually fade.
+
+Each connection keeps its own history. The same reward can therefore strengthen some connections, weaken others, and leave others unchanged.
+
+### The three learning rules
+
+We choose a learning rule on the connection between populations.
+
+**STDP** changes connection strength from the relative firing of the connected neurons. It does not wait for a reward. The activity itself drives the change.
+**STDP3** uses eligibility together with reward. Recent firing leaves a short memory, and activity from a selected dopaminergic OPU applies changes based on that memory.
+**STDP3_SLOW** works in the same way as STDP3, but changes connection strength more slowly.
+
+### How they are different
+
+STDP lets a connection adapt directly from the activity passing through the network. It doesn't need a reward. STDP3 lets a reward influence the effect of recent activity. STDP3_SLOW makes that reward-dependent adaptation more gradual.
+
+For STDP3 and STDP3_SLOW, we also choose LTP or LTD. LTP follows the direction recorded in eligibility; LTD reverses it. This means LTP does not always make a connection stronger, and LTD does not always make it weaker. The recent firing history matters.
+
+### Build the behavior before adding learning
+
+**Neural dynamics are the core of our architecture.** The rhythms, operating points, connections, and feedback produce the brain's computation and behavior. That's what make this synthetic neurons different and valuable. 
+
+Start by building a network whose intended behavior is stable with static connections. Static means the connection weights remain fixed; the neurons still fire, interact, retain activity, and respond to changing information.
+
+Once that behavior works, add a learning rule to the relationships that should change with experience. For example, a particular pathway might need to become less influential after an unwanted outcome, or a useful response might need to become easier to express.
+
+Learning rules serve those specific behaviors. They do not need to be added to every connection for a brain to work.
+
+### Why learning through inhibition matters
+
+Inhibition helps decide which activity can influence the rest of the network. Strengthening an inhibitory connection increases its opposition. Weakening it gives the receiving pathway more room to respond.
+
+An entire network can learn through changes in these inhibitory relationships. It can adapt how it suppresses competing activity, releases a response, or regulates its own behavior while keeping its excitatory computations fixed.
+
+This is especially useful when the existing neural operations already do what we need.
+
+**Giving an excitatory connection between OPUs a learning rule can change the computation performed by those OPUs.** A relationship built to compare, combine, or transform information may behave differently as its connection strength change, even though its rhythm and TNorm remain the same.
+
+That may be exactly what a design needs, but it should be intentional. The same care applies to inhibition inside an exact mathematical relation: changing the strength of the cancellation or subtraction connection changes the calculation. Separate the relationships that should preserve an operation from those that should adapt its influence on behavior.
+
+### Reward can come from outside or inside the brain
+
+A reward can begin with something measured outside the brain: contact with an object, reaching a location, or another meaningful result. The observation enters through an input and activates the reward pathway.
+
+Reward can also be part of the brain's own feedback process. A neural circuit can recognize a condition and activate a dopaminergic OPU without the controller calculating a reward for it.
+
+In both cases, the dopaminergic population's actual firing supplies the learning signal to the connections that select it.
+
+The amount of change also depends on how many reward neurons fire. With the same eligibility and learning rule, more neurons firing in a timestep produces a larger adjustment. Longer or repeated bursts can produce further changes.
+
+### Let reward activity settle
+
+A reward should be able to mark an event and then settle, so later experiences can have their own effect.
+
+Dopaminergic neurons have recovery dynamics. After a burst, they become temporarily less ready to burst again. This effect relaxes over time. Continued excitation can still produce repeated bursts and keep learning active.
+
+An ordinary OPU can inhibit the reward population to help regulate those future bursts. That inhibitory connection can use STDP3_SLOW, with the same reward population selected as its learning signal. In this arrangement, reward helps shape the pathway that limits its own activity.
+
+When the firing history makes that inhibitory connection stronger, it can gradually reduce repeated reward activity. This is reward self-regulation. It still needs an active inhibitory pathway and the appropriate learning direction.
+
+A direct inhibitory connection from the dopaminergic population to itself does not provide this brake in the current engine. Dopaminergic spikes supply learning signals; an ordinary OPU must deliver the inhibition.
+
+STDP3_SLOW slows the changes but does not automatically stop them. Follow the individual reward neurons and their regulating pathway. The aim is for a reward episode to end while allowing a later relevant event to produce another response.
+
 ## 13 Motor primitives and embodied behavior
 
 A brain that controls a body needs to know what it wants to do, what the body is currently doing, and how each movement changes the situation.
