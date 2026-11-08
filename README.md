@@ -532,6 +532,35 @@ STDP lets a connection adapt directly from the activity passing through the netw
 
 For STDP3 and STDP3_SLOW, we also choose LTP or LTD. LTP follows the direction recorded in eligibility; LTD reverses it. This means LTP does not always make a connection stronger, and LTD does not always make it weaker. The recent firing history matters.
 
+### LTP and LTD: how a connection responds to reward
+
+LTP means **long-term potentiation**, associated with strengthening a connection. LTD means **long-term depression**, associated with weakening it.
+
+In our STDP3 and STDP3_SLOW rules, the result also depends on eligibility. We choose how the reward should act on that memory:
+
+- **LTP follows the direction recorded in eligibility.**
+- **LTD reverses that direction.**
+
+This means we need to consider both the firing history and the reward setting:
+
+| What the recent firing history contributes | With LTP reward | With LTD reward |
+| --- | --- | --- |
+| A tendency to strengthen the connection | Strengthens it | Weakens it |
+| A tendency to weaken the connection | Weakens it | Strengthens it |
+
+When there is no eligibility to act on, reward alone does not produce a change through these rules.
+
+Therefore, choosing LTP does not guarantee that a connection becomes stronger, and choosing LTD does not guarantee that it becomes weaker. The neurons' recent activity determines what the reward acts on.
+
+### What this means for inhibition
+
+On an inhibitory connection, **stronger means more opposition**. The source can hold back the receiving population more strongly. A weaker inhibitory connection gives the receiving population more room to respond.
+
+This is useful for behavioral adjustment. A network can change how strongly it suppresses an action or competing pathway while preserving its established excitatory computations.
+
+LTP and LTD do not choose whether a connection is excitatory or inhibitory. We choose the connection type separately. Learning changes its strength.
+
+
 ### Build the behavior before adding learning
 
 **Neural dynamics are the core of our architecture.** The rhythms, operating points, connections, and feedback produce the brain's computation and behavior. That's what make this synthetic neurons different and valuable. 
