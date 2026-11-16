@@ -105,7 +105,7 @@ A small difference can matter. When a useful circuit specifies **TNorm 2.01**, u
 
 TNorm is a different concept from weights in AI. It selects the operating point and changes the neural dynamics; it is not simply a measure of the strength of a connection. It also does not specify an inhibition percentage, a fuzzy truth value, or a motor gain.
 
-For high-gamma, `brain.opu("RELAY", "high-gamma", 10)` makes the operating point explicit. When its TNorm is omitted, high-gamma uses the default reference at 10. The other rhythms require a TNorm.
+For high-gamma, `brain.opu("RELAY", "high-gamma", 5)` makes the operating point explicit. When its TNorm is omitted, high-gamma uses the default reference at 10 and this will saturate the OPU. We highly recommend always using a TNorm for high-gamma. The other rhythms require a TNorm.
 
 ## 05 Inputs and outputs
 
